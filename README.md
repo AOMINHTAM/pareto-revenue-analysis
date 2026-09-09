@@ -1,67 +1,67 @@
-# 📊 TeddyWorld — Phân Tích Doanh Thu Nguyên Lý Pareto (80/20)
+# 📊 TeddyWorld — Revenue Contribution Analysis via Pareto Principle (80/20)
 
-Dự án phân tích đóng góp doanh thu sản phẩm dựa trên tập dữ liệu thương mại điện tử **TeddyWorld** (hơn 32.000 đơn hàng), ứng dụng **Nguyên lý Pareto (80/20)** để xác định dòng sản phẩm chủ lực ("vital few") tạo ra phần lớn giá trị kinh doanh, phát hiện rủi ro phụ thuộc danh mục và đề xuất giải pháp tối ưu vận hành.
-
----
-
-## 🎯 1. Bối Cảnh & Mục Tiêu Kinh Doanh
-
-* **Bối cảnh:** TeddyWorld kinh doanh đa dạng các dòng gấu bông và phụ kiện quà tặng. Ban lãnh đạo cần đánh giá mức độ phụ thuộc doanh thu vào từng SKU để phân bổ ngân sách marketing và kế hoạch nhập hàng hợp lý.
-* **Mục tiêu:**
-  * Tính toán doanh thu thực nhận (*Net Revenue = Gross Revenue - Refunds*).
-  * Xác định tỷ trọng đóng góp tích lũy của từng sản phẩm.
-  * Phân nhóm danh mục theo ngưỡng Pareto (Nhóm 80% doanh thu vs Nhóm 20% còn lại).
-  * Đưa ra khuyến nghị chiến lược tồn kho và kinh doanh.
+An end-to-end data analysis project exploring product revenue contribution using the **TeddyWorld** e-commerce dataset (32,000+ orders). This analysis applies the **Pareto Principle (80/20 Rule)** to identify the "vital few" revenue-generating SKUs, evaluate product dependency risks, and provide data-driven inventory and marketing recommendations.
 
 ---
 
-## 🛠️ 2. Công Cụ & Thư Viện
+## 🎯 1. Business Context & Objectives
 
-* **Ngôn ngữ:** Python 3.x
-* **Thư viện chính:**
-  * `pandas` / `numpy`: Làm sạch, merge bảng và tính toán doanh thu lũy kế (`cumsum`).
-  * `matplotlib` / `seaborn`: Trực quan hóa biểu đồ Pareto kết hợp (Bar chart + Line chart tích lũy).
-* **Môi trường:** Jupyter Notebook
+* **Business Context:** TeddyWorld retails a wide range of plush toys and gift accessories. Management needed to assess portfolio revenue concentration to optimize marketing budget allocation and warehouse stock policies.
+* **Core Objectives:**
+  * Calculate accurate Net Revenue after refunds (*Net Revenue = Gross Revenue - Refunds*).
+  * Determine the cumulative revenue contribution per SKU.
+  * Segment products based on Pareto thresholds (Top 80% Core vs. Bottom 20% Tail).
+  * Deliver actionable strategic recommendations for inventory management and sales operations.
 
 ---
 
-## 📈 3. Kết Quả & Trực Quan Hóa (Pareto Chart)
+## 🛠️ 2. Tech Stack & Tools
 
-### Bảng số liệu phân tích lũy kế
+* **Language:** Python 3.x
+* **Key Libraries:**
+  * `pandas` / `numpy`: Data wrangling, table merges, and cumulative sum (`cumsum`) computations.
+  * `matplotlib` / `seaborn`: Dual-axis Pareto chart visualization (Bar chart for sales + cumulative percentage line).
+* **Environment:** Jupyter Notebook
 
-| Thứ hạng | Tên sản phẩm | Số lượng bán | Doanh thu ($) | Tỷ trọng (%) | Lũy kế (%) | Phân nhóm Pareto |
+---
+
+## 📈 3. Key Findings & Pareto Analysis
+
+### Cumulative Revenue Contribution Breakdown
+
+| Rank | Product Name | Units Sold | Net Revenue ($) | Share (%) | Cumulative (%) | Pareto Segment |
 | :---: | :--- | :---: | :---: | :---: | :---: | :---: |
 | **1** | The Original Mr. Fuzzy | 15,200 | 485,000 | 45.2% | 45.2% | **Top 80% (Core)** |
 | **2** | Forever Bear | 8,400 | 268,800 | 25.1% | 70.3% | **Top 80% (Core)** |
 | **3** | The Birthday Sugar Panda | 3,900 | 124,800 | 11.6% | 81.9% | **Top 80% (Core)** |
 | **4** | The Hudson River Mini bear | 3,100 | 99,200 | 9.3% | 91.2% | **Bottom 20% (Tail)** |
-| **...** | Các phụ kiện & SKU khác | ... | ... | ... | 100.0% | **Bottom 20% (Tail)** |
+| **...** | Other Accessories & SKUs | ... | ... | ... | 100.0% | **Bottom 20% (Tail)** |
 
-> **Quy tắc 80/20 được kiểm chứng:** Chỉ **3 dòng sản phẩm đầu bảng** đã đóng góp đến **~82% tổng doanh thu** của toàn bộ thương hiệu.
-
----
-
-## 💡 4. Insights & Bài Học Kỹ Thuật
-
-* **Sự tập trung rủi ro danh mục:** Doanh số phụ thuộc áp đảo vào dòng sản phẩm *The Original Mr. Fuzzy* (>45%). Nếu xảy ra đứt gãy chuỗi cung ứng hoặc lỗi chất lượng với SKU này, dòng tiền công ty sẽ bị tổn hại nghiêm trọng.
-* **Hiệu ứng Cross-selling chưa tối ưu:** Nhóm sản phẩm đuôi (Long-tail items) chiếm nhiều mã SKU nhưng mang lại biên đóng góp thấp, cần đánh giá lại chi phí lưu kho.
-* **Lưu ý kỹ thuật khi xử lý dữ liệu:**
-  * Phải join bảng đơn hàng với bảng hoàn tiền (`refunds`) trước khi tính doanh thu ròng, tránh phóng đại số liệu thực thu.
-  * Sắp xếp giảm dần (`sort_values(ascending=False)`) trước khi chạy hàm `.cumsum()` tính tỷ lệ phần trăm tích lũy.
+> **80/20 Rule Verified:** Just **3 core products** account for **~82% of total net revenue**, validating a heavy concentration in top-performing items.
 
 ---
 
-## 🚀 5. Khuyến Nghị Hành Động (Actionable Recommendations)
+## 💡 4. Business Insights & Engineering Notes
 
-1. **Quản trị Tồn kho Ưu tiên:** Áp dụng mô hình dự báo nhu cầu chính xác và mức tồn kho an toàn (Safety Stock) cao nhất cho 3 SKU nhóm 80% (*Mr. Fuzzy, Forever Bear, Sugar Panda*), tránh tình trạng Out-of-Stock vào mùa cao điểm.
-2. **Chiến lược Bán kèm (Bundling):** Tạo các combo quà tặng ghép đôi sản phẩm chủ lực với các SKU nhóm đuôi để kích thích thanh lý hàng tồn phụ kiện.
-3. **Phân bổ Ngân sách Paid Ads:** Tập trung 70–80% chi phí chạy quảng cáo chuyển đổi vào Top 3 sản phẩm chủ lực để tối đa hóa ROAS (Return on Ad Spend).
+* **Portfolio Dependency Risk:** The business relies excessively on a single SKU (*The Original Mr. Fuzzy* at >45% revenue). Any supply chain disruption or quality issue with this SKU poses a severe risk to cash flow.
+* **Underperforming Long Tail:** Lower-tier SKUs consume catalog space and inventory holding costs while contributing minimal revenue margin.
+* **Technical Considerations:**
+  * Refund records must be subtracted prior to grouping to prevent gross revenue inflation.
+  * Data must be strictly sorted in descending order (`sort_values(ascending=False)`) before computing `.cumsum()` for cumulative percentage curves.
 
 ---
 
-## ⚙️ 6. Hướng Dẫn Tái Hiện Môi Trường (Reproducibility)
+## 🚀 5. Actionable Recommendations
 
-1. Clone repository về máy:
+1. **Prioritized Inventory Control:** Implement high safety stock thresholds and strict lead-time monitoring for the Top 3 SKUs (*Mr. Fuzzy, Forever Bear, Sugar Panda*) to eliminate stockouts during seasonal demand peaks.
+2. **Product Bundling Strategy:** Package low-velocity accessories with top-performing plush toys to accelerate inventory turnover for tail items.
+3. **Paid Marketing Allocation:** Allocate 70–80% of digital acquisition budget exclusively to the Top 3 conversion drivers to maximize Return on Ad Spend (ROAS).
+
+---
+
+## ⚙️ 6. How to Reproduce
+
+1. Clone the repository:
    ```bash
    git clone [https://github.com/AOMINHTAM/pareto-revenue-analysis.git](https://github.com/AOMINHTAM/pareto-revenue-analysis.git)
    cd pareto-revenue-analysis
