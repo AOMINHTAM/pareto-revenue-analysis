@@ -1,6 +1,17 @@
 # 📊 TeddyWorld — Revenue Contribution Analysis via Pareto Principle (80/20)
 
-An end-to-end data analysis project exploring product revenue contribution using the **TeddyWorld** e-commerce dataset (32,000+ orders). This analysis applies the **Pareto Principle (80/20 Rule)** to identify the "vital few" revenue-generating SKUs, evaluate product dependency risks, and provide data-driven inventory and marketing recommendations.
+> 🌐 **Portfolio Case Study:** [View full Case Study & Inventory Caveats →](https://aominhtam-portfolio.vercel.app/projects/pareto-revenue.html)
+
+An e-commerce revenue concentration case study exploring product sales using the **Maven Fuzzy Factory ("TeddyWorld" simulated scenario)** dataset (**32,313 orders**, Mar 2012 – Mar 2015, USD). Applies the **Pareto Principle (80/20 Rule)** after deducting item refunds to identify core revenue-driving SKUs and dependency risks.
+
+---
+
+## 📦 Dataset & Scope
+
+* **Project Type:** Personal Project / Simulated Business Case (*"TeddyWorld"*)
+* **Dataset Source:** Maven Fuzzy Factory Teaching Dataset (`orders`, `order_items`, `order_item_refunds`, `products`)
+* **Scale & Range:** `32,313` orders &bull; Mar 2012 – Mar 2015 (3 Years) &bull; USD ($)
+* **Metric Definitions:** `Net Revenue = Gross Revenue (price_usd) - Refunds`; `Gross Margin = price_usd - cogs_usd`. *(No inventory storage or warehouse holding-cost columns exist in this dataset.)*
 
 ---
 
@@ -44,18 +55,18 @@ An end-to-end data analysis project exploring product revenue contribution using
 ## 💡 4. Business Insights & Engineering Notes
 
 * **Portfolio Dependency Risk:** The business relies excessively on a single SKU (*The Original Mr. Fuzzy* at >45% revenue). Any supply chain disruption or quality issue with this SKU poses a severe risk to cash flow.
-* **Underperforming Long Tail:** Lower-tier SKUs consume catalog space and inventory holding costs while contributing minimal revenue margin.
+* **Underperforming Long Tail (Inventory Caveat):** Tail SKUs contribute a small share of net revenue and gross margin (`price_usd - cogs_usd`); because the dataset contains no warehouse-holding or storage-cost data, these items are flagged for assortment/margin review rather than assumed storage waste.
 * **Technical Considerations:**
   * Refund records must be subtracted prior to grouping to prevent gross revenue inflation.
   * Data must be strictly sorted in descending order (`sort_values(ascending=False)`) before computing `.cumsum()` for cumulative percentage curves.
 
 ---
 
-## 🚀 5. Actionable Recommendations
+## 🚀 5. Proposed Inventory & Ad-Spend Experiments
 
-1. **Prioritized Inventory Control:** Implement high safety stock thresholds and strict lead-time monitoring for the Top 3 SKUs (*Mr. Fuzzy, Forever Bear, Sugar Panda*) to eliminate stockouts during seasonal demand peaks.
-2. **Product Bundling Strategy:** Package low-velocity accessories with top-performing plush toys to accelerate inventory turnover for tail items.
-3. **Paid Marketing Allocation:** Allocate 70–80% of digital acquisition budget exclusively to the Top 3 conversion drivers to maximize Return on Ad Spend (ROAS).
+1. **Prioritized Safety Stocks:** Implement tighter safety-stock buffers and supplier lead-time monitoring for the Top 3 SKUs (~82% net revenue share) to reduce stockout exposure.
+2. **Tail-SKU Bundling:** Test pairing low-velocity accessories with high-traffic plush items to accelerate tail SKU turnover without margin-eroding clearance cuts.
+3. **Hypothesis — Paid Ad Weighting (70–80%):** Test allocating 70–80% of paid acquisition spend toward Top 3 revenue drivers while monitoring marginal **Incremental ROAS** and **Inventory Turnover** so tail-SKU discovery is not starved.
 
 ---
 
@@ -63,5 +74,6 @@ An end-to-end data analysis project exploring product revenue contribution using
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/AOMINHTAM/pareto-revenue-analysis.git](https://github.com/AOMINHTAM/pareto-revenue-analysis.git)
+   git clone https://github.com/AOMINHTAM/pareto-revenue-analysis.git
    cd pareto-revenue-analysis
+   ```
